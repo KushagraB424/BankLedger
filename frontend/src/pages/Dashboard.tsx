@@ -120,11 +120,11 @@ export const Dashboard: React.FC = () => {
               <ArrowLeftRight className="h-5 w-5 mr-3 text-slate-400" />
               Transfer Money
             </Link>
-            <Link to="/accounts" className="flex items-center px-3 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 rounded-md transition-colors">
+            <Link to="/transfers" className="flex items-center px-3 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 rounded-md transition-colors">
               <ArrowDownLeft className="h-5 w-5 mr-3 text-slate-400" />
               Deposit Funds
             </Link>
-            <Link to="/accounts" className="flex items-center px-3 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 rounded-md transition-colors">
+            <Link to="/transfers" className="flex items-center px-3 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 rounded-md transition-colors">
               <ArrowUpRight className="h-5 w-5 mr-3 text-slate-400" />
               Withdraw Funds
             </Link>
