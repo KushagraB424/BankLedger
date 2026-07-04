@@ -1,5 +1,7 @@
 package com.kushagragupta.bankledger.service;
 
+import com.kushagragupta.bankledger.security.JwtService;
+
 import com.kushagragupta.bankledger.dto.AuthResponse;
 import com.kushagragupta.bankledger.dto.LoginRequest;
 import com.kushagragupta.bankledger.dto.RegisterRequest;
