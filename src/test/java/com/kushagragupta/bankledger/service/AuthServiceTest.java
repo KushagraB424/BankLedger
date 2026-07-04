@@ -77,12 +77,9 @@ class AuthServiceTest {
         when(roleRepository.findByName(RoleName.CUSTOMER)).thenReturn(Optional.of(customerRole));
         when(passwordEncoder.encode(anyString())).thenReturn("encoded_password");
         when(customerRepository.save(any(Customer.class))).thenReturn(customer);
-        when(jwtService.generateToken(any())).thenReturn("jwt_token");
+        authService.register(registerRequest);
 
-        AuthResponse response = authService.register(registerRequest);
-
-        assertNotNull(response);
-        assertEquals("jwt_token", response.getToken());
+        verify(customerRepository).save(any(Customer.class));
         verify(customerRepository).save(any(Customer.class));
     }
 
@@ -107,13 +104,13 @@ class AuthServiceTest {
     void login_Success() {
         Authentication authentication = mock(Authentication.class);
         when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class))).thenReturn(authentication);
-        when(customerRepository.findByPhoneNumber(anyString())).thenReturn(Optional.of(customer));
+        when(customerRepository.findByEmail(anyString())).thenReturn(Optional.of(customer));
         when(jwtService.generateToken(any())).thenReturn("jwt_token");
 
         AuthResponse response = authService.login(loginRequest);
 
         assertNotNull(response);
-        assertEquals("jwt_token", response.getToken());
+        assertEquals("jwt_token", response.getAccessToken());
     }
 
     @Test

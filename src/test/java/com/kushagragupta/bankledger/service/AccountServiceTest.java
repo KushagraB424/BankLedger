@@ -48,7 +48,7 @@ class AccountServiceTest {
         account = Account.builder()
                 .id(UUID.randomUUID())
                 .accountNumber("1234567890")
-                .accountType(AccountType.CHECKING)
+                .accountType(AccountType.CURRENT)
                 .balance(BigDecimal.ZERO)
                 .status(AccountStatus.ACTIVE)
                 .customer(customer)
@@ -61,11 +61,11 @@ class AccountServiceTest {
         when(accountRepository.existsByAccountNumber(anyString())).thenReturn(false);
         when(accountRepository.save(any(Account.class))).thenAnswer(i -> i.getArguments()[0]);
 
-        Account result = accountService.createAccount(customer.getId(), AccountType.CHECKING);
+        Account result = accountService.createAccount(customer.getId(), AccountType.CURRENT);
 
         assertNotNull(result);
         assertEquals(BigDecimal.ZERO, result.getBalance());
-        assertEquals(AccountType.CHECKING, result.getAccountType());
+        assertEquals(AccountType.CURRENT, result.getAccountType());
         assertEquals(AccountStatus.ACTIVE, result.getStatus());
         assertNotNull(result.getAccountNumber());
         verify(accountRepository).save(any(Account.class));

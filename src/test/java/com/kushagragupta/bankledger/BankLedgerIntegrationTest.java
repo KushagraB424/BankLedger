@@ -39,26 +39,36 @@ class BankLedgerIntegrationTest {
     void testEndToEndBankingFlow() throws Exception {
         // 1. Register User 1
         RegisterRequest register1 = new RegisterRequest("Alice", "Smith", "alice@example.com", "password", "5550001111");
-        MvcResult registerResult1 = mockMvc.perform(post("/api/v1/auth/register")
+        mockMvc.perform(post("/api/v1/auth/register")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(register1)))
-                .andExpect(status().isCreated())
-                .andReturn();
+                .andExpect(status().isCreated());
                 
-        String token1 = objectMapper.readValue(registerResult1.getResponse().getContentAsString(), AuthResponse.class).getToken();
+        LoginRequest login1 = new LoginRequest("alice@example.com", "password");
+        MvcResult loginResult1 = mockMvc.perform(post("/api/v1/auth/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(login1)))
+                .andExpect(status().isOk())
+                .andReturn();
+        String token1 = objectMapper.readValue(loginResult1.getResponse().getContentAsString(), AuthResponse.class).getAccessToken();
 
         // 2. Register User 2
         RegisterRequest register2 = new RegisterRequest("Bob", "Jones", "bob@example.com", "password", "5550002222");
-        MvcResult registerResult2 = mockMvc.perform(post("/api/v1/auth/register")
+        mockMvc.perform(post("/api/v1/auth/register")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(register2)))
-                .andExpect(status().isCreated())
-                .andReturn();
+                .andExpect(status().isCreated());
                 
-        String token2 = objectMapper.readValue(registerResult2.getResponse().getContentAsString(), AuthResponse.class).getToken();
+        LoginRequest login2 = new LoginRequest("bob@example.com", "password");
+        MvcResult loginResult2 = mockMvc.perform(post("/api/v1/auth/login")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(login2)))
+                .andExpect(status().isOk())
+                .andReturn();
+        String token2 = objectMapper.readValue(loginResult2.getResponse().getContentAsString(), AuthResponse.class).getAccessToken();
 
         // 3. Create Account for User 1
-        CreateAccountRequest createAccReq = new CreateAccountRequest(AccountType.CHECKING);
+        CreateAccountRequest createAccReq = new CreateAccountRequest(AccountType.CURRENT);
         MvcResult accResult1 = mockMvc.perform(post("/api/v1/accounts")
                 .header("Authorization", "Bearer " + token1)
                 .contentType(MediaType.APPLICATION_JSON)
