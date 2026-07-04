@@ -67,7 +67,7 @@ class TransactionServiceTest {
         assertNotNull(result);
         assertEquals(TransactionType.DEPOSIT, result.getType());
         assertEquals(amount, result.getAmount());
-        assertEquals(TransactionStatus.COMPLETED, result.getStatus());
+        assertEquals(TransactionStatus.SUCCESS, result.getStatus());
         verify(accountService).creditAccount(sourceId, amount);
         verify(transactionRepository).save(any(Transaction.class));
     }

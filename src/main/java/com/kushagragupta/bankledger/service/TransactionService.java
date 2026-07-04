@@ -36,7 +36,7 @@ public class TransactionService {
                 .amount(amount)
                 .description(description)
                 .sourceAccount(account)
-                .status(TransactionStatus.COMPLETED)
+                .status(TransactionStatus.SUCCESS)
                 .build();
 
         Transaction saved = transactionRepository.save(transaction);
@@ -55,7 +55,7 @@ public class TransactionService {
                 .amount(amount)
                 .description(description)
                 .sourceAccount(account)
-                .status(TransactionStatus.COMPLETED)
+                .status(TransactionStatus.SUCCESS)
                 .build();
 
         Transaction saved = transactionRepository.save(transaction);
@@ -84,7 +84,7 @@ public class TransactionService {
                 .description(description)
                 .sourceAccount(sourceAccount)
                 .destinationAccount(destinationAccount)
-                .status(TransactionStatus.COMPLETED)
+                .status(TransactionStatus.SUCCESS)
                 .build();
 
         Transaction saved = transactionRepository.save(transaction);
