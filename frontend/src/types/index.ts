@@ -31,5 +31,6 @@ export interface Transaction {
   type: 'DEPOSIT' | 'WITHDRAWAL' | 'TRANSFER';
   status: 'PENDING' | 'SUCCESS' | 'FAILED';
   description: string;
-  createdAt: string;
+  createdAt?: string;
+  timestamp: string;
 }

@@ -23,7 +23,7 @@ export const AccountDetails: React.FC = () => {
         ]);
         setAccount(acc);
         // Sort newest first
-        txs.sort((a: Transaction, b: Transaction) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        txs.sort((a: Transaction, b: Transaction) => new Date(b.timestamp || b.createdAt).getTime() - new Date(a.timestamp || a.createdAt).getTime());
         setTransactions(txs);
       } catch (err: any) {
         setError('Failed to load account details');
@@ -95,7 +95,7 @@ export const AccountDetails: React.FC = () => {
                   return (
                     <tr key={tx.id} className="hover:bg-slate-50">
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500 tabular-nums">
-                        {formatDate(tx.createdAt)}
+                        {formatDate(tx.timestamp || tx.createdAt)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">
                         {tx.description}
