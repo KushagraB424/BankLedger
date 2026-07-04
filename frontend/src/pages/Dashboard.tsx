@@ -26,7 +26,7 @@ export const Dashboard: React.FC = () => {
         }
         
         // Sort newest first and take top 5
-        allTx.sort((a, b) => new Date(b.timestamp || b.createdAt).getTime() - new Date(a.timestamp || a.createdAt).getTime());
+        allTx.sort((a, b) => new Date(b.timestamp || b.createdAt || '').getTime() - new Date(a.timestamp || a.createdAt || '').getTime());
         setTransactions(allTx.slice(0, 5));
       } catch (err: any) {
         setError('Failed to load dashboard data');
@@ -161,7 +161,7 @@ export const Dashboard: React.FC = () => {
                     return (
                       <tr key={tx.id} className="hover:bg-slate-50">
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500 tabular-nums">
-                          {formatDate(tx.timestamp || tx.createdAt)}
+                          {formatDate(tx.timestamp || tx.createdAt || '')}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-slate-900">
                           {tx.description}
